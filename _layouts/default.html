@@ -26,6 +26,7 @@
     .dark { --paper:#121e17; --ink:#efe9d6; --muted:#b3bfae; --rule:#2b3d32; --accent:#93d3a2; --hero:#1d4a33; --hero-ink:#f5f0e1; }
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    html, body { overflow-x: clip; }
     body { background: var(--paper); }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
     a.t { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; text-decoration-thickness: 1px; transition: color .2s, text-decoration-color .2s; }
