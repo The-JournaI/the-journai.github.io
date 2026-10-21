@@ -17,13 +17,13 @@
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script>
     tailwind.config = { darkMode: 'class', theme: { extend: {
-      colors: { paper: 'var(--paper)', ink: 'var(--ink)', muted: 'var(--muted)', rule: 'var(--rule)', accent: 'var(--accent)' },
+      colors: { paper: 'var(--paper)', ink: 'var(--ink)', muted: 'var(--muted)', rule: 'var(--rule)', accent: 'var(--accent)', hero: 'var(--hero)', 'hero-ink': 'var(--hero-ink)' },
       fontFamily: { serif: ['"Source Serif 4"', 'Georgia', 'serif'], sans: ['Inter', 'system-ui', 'sans-serif'] }
     } } };
   </script>
   <style>
-    :root { --paper:#f5f0e1; --ink:#1b2a21; --muted:#4e5d52; --rule:#d2cbb2; --accent:#1f5a3a; }
-    .dark { --paper:#121e17; --ink:#efe9d6; --muted:#b3bfae; --rule:#2b3d32; --accent:#93d3a2; }
+    :root { --paper:#f5f0e1; --ink:#1b2a21; --muted:#4e5d52; --rule:#d2cbb2; --accent:#1f5a3a; --hero:#1d4a33; --hero-ink:#f5f0e1; }
+    .dark { --paper:#121e17; --ink:#efe9d6; --muted:#b3bfae; --rule:#2b3d32; --accent:#93d3a2; --hero:#1d4a33; --hero-ink:#f5f0e1; }
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     body { background: var(--paper); }
@@ -61,25 +61,25 @@
     {{ content }}
   </main>
 
-  <footer id="about" class="mx-auto max-w-5xl px-5 mt-20 border-t-2 border-ink">
-    <div class="py-10 grid md:grid-cols-12 gap-8">
-      <h2 class="md:col-span-3 font-sans text-xs font-semibold uppercase tracking-[.16em] text-accent">About</h2>
-      <div class="md:col-span-9 max-w-2xl">
-        <p>I'm {{ site.author }}. I don't work for anyone you'd have heard of, and I write about whatever I can't stop thinking about, which tends to land somewhere in business, finance, economics or politics. Treat it as one person's notebook. I'll say what I think and why, and I'll say so when I turn out to be wrong. Nothing here is investment advice.</p>
-        {% if site.newsletter_action != "" %}
-        <form action="{{ site.newsletter_action }}" method="post" class="mt-6 font-sans max-w-md">
-          <label for="email" class="block text-sm font-medium mb-2">Get new posts by email</label>
-          <div class="flex gap-2">
-            <input id="email" name="email" type="email" required autocomplete="email" class="flex-1 min-w-0 bg-transparent border border-ink px-3 py-2 focus:border-accent focus:outline-none">
-            <button class="bg-ink text-paper px-4 py-2 text-sm font-medium hover:bg-accent transition-colors">Subscribe</button>
-          </div>
-        </form>
-        {% else %}
-        <p class="mt-4 font-sans text-sm"><a class="t text-accent" href="{{ '/subscribe/' | relative_url }}">Subscribe</a></p>
-        {% endif %}
+  <footer id="about" class="mx-auto max-w-5xl px-5 mt-24">
+    <div class="bg-hero text-hero-ink px-6 py-12 sm:px-12 grid md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-4 flex md:flex-col items-center md:items-start gap-5">
+        <div class="shrink-0 w-24 h-24 rounded-full border-2 border-hero-ink grid place-items-center text-4xl font-bold tracking-tight" aria-hidden="true">CC</div>
+        <div>
+          <p class="font-sans text-xs font-semibold uppercase tracking-[.2em] opacity-80">About</p>
+          <h2 class="mt-2 text-3xl font-bold leading-tight">{{ site.author }}</h2>
+        </div>
+      </div>
+      <div class="md:col-span-8 max-w-xl text-lg">
+        <p>I'm a young writer with no institution behind me and no editor above me. I write about whatever I can't stop thinking about: why a bond auction goes badly, what a rent cap really does, why a government's arithmetic doesn't close.</p>
+        <p class="mt-4 opacity-90">Business, finance, economics and politics keep turning out to be one subject. My habit is to price an idea before I defend it, and to say so when I get one wrong. Nothing here is investment advice.</p>
+        <p class="mt-7 font-sans text-sm flex flex-wrap gap-x-6 gap-y-2">
+          <a class="underline underline-offset-4 hover:opacity-80" href="{{ '/subscribe/' | relative_url }}">Subscribe</a>
+          <a class="underline underline-offset-4 hover:opacity-80" href="{{ '/feed.xml' | relative_url }}">RSS feed</a>
+        </p>
       </div>
     </div>
-    <p class="py-5 border-t border-rule font-sans text-xs text-muted">© {{ 'now' | date: "%Y" }} {{ site.author }}</p>
+    <p class="py-6 font-sans text-xs text-muted">© {{ 'now' | date: "%Y" }} {{ site.author }} · {{ site.title }}</p>
   </footer>
 
   <script>
