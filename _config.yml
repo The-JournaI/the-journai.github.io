@@ -3,7 +3,7 @@ description: Notes on business, finance, economics and politics.
 author: Colin Copps
 # Site address; when you get a custom domain, change it here
 url: "https://colin-copps.github.io"
-baseurl: "https://colin-copps.github.io"
+baseurl: ""
 permalink: /posts/:title/
 markdown: kramdown
 plugins:
