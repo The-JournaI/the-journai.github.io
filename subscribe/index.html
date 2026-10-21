@@ -25,7 +25,10 @@ title: Subscribe
 </section>
 <script>
   document.getElementById('copy').addEventListener('click', async (e) => {
-    const f = document.getElementById('feed'); f.select();
-    try { await navigator.clipboard.writeText(f.value); e.target.textContent = 'Copied'; } catch (_) { document.execCommand('copy'); }
+    const f = document.getElementById('feed'); f.focus(); f.select();
+    let ok = false;
+    try { await navigator.clipboard.writeText(f.value); ok = true; } catch (_) { try { ok = document.execCommand('copy'); } catch (_) {} }
+    e.target.textContent = ok ? 'Copied' : 'Press Cmd/Ctrl+C';
+    setTimeout(() => e.target.textContent = 'Copy', 2500);
   });
 </script>

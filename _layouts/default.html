@@ -46,12 +46,12 @@
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-accent focus:text-paper focus:px-4 focus:py-2 font-sans text-sm">Skip to content</a>
 
   <header class="mx-auto max-w-5xl px-5 pt-6 pb-4 border-b-2 border-ink flex items-baseline justify-between font-sans">
-    <a href="{{ '/' | relative_url }}" class="font-serif text-3xl font-bold tracking-tight">{{ site.title }}</a>
-    <nav aria-label="Primary" class="flex items-center gap-5 text-sm">
-      <a class="t hidden sm:inline" href="{{ '/writing/' | relative_url }}">Writing</a>
-      <a class="t hidden sm:inline" href="{{ '/about/' | relative_url }}">About</a>
-      <a class="t hidden sm:inline" href="{{ '/subscribe/' | relative_url }}">Subscribe</a>
-      <button id="theme" type="button" aria-pressed="false" class="border border-rule px-3 py-1.5 text-xs hover:border-accent hover:text-accent transition-colors">
+    <a href="{{ '/' | relative_url }}" class="font-serif text-2xl sm:text-3xl font-bold tracking-tight">{{ site.title }}</a>
+    <nav aria-label="Primary" class="flex items-center gap-3 sm:gap-5 text-xs sm:text-sm">
+      <a class="t" href="{{ '/writing/' | relative_url }}">Writing</a>
+      <a class="t" href="{{ '/about/' | relative_url }}">About</a>
+      <a class="t" href="{{ '/subscribe/' | relative_url }}">Subscribe</a>
+      <button id="theme" type="button" aria-pressed="false" class="border border-rule px-2.5 py-1.5 text-xs hover:border-accent hover:text-accent transition-colors">
         <span class="dark:hidden">Dark</span><span class="hidden dark:inline">Light</span><span class="sr-only"> mode</span>
       </button>
     </nav>
