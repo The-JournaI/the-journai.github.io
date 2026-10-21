@@ -1,9 +1,9 @@
 title: The Journal
 description: Notes on business, finance, economics and politics.
 author: Colin Copps
-# Set to your user site, e.g. https://colin-copps.github.io (leave baseurl empty for a user site)
-url: ""
-baseurl: ""
+# Site address; when you get a custom domain, change it here
+url: "https://colin-copps.github.io"
+baseurl: "https://colin-copps.github.io"
 permalink: /posts/:title/
 markdown: kramdown
 plugins:

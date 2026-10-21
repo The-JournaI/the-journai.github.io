@@ -22,8 +22,8 @@
     } } };
   </script>
   <style>
-    :root { --paper:#fbf8f2; --ink:#1d1b18; --muted:#5c564d; --rule:#d9d1c3; --accent:#8c1c2e; }
-    .dark { --paper:#18130f; --ink:#ece4d6; --muted:#b5a996; --rule:#3a2f25; --accent:#ef8f9b; }
+    :root { --paper:#f5f0e1; --ink:#1b2a21; --muted:#4e5d52; --rule:#d2cbb2; --accent:#1f5a3a; }
+    .dark { --paper:#121e17; --ink:#efe9d6; --muted:#b3bfae; --rule:#2b3d32; --accent:#93d3a2; }
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     body { background: var(--paper); }
@@ -36,6 +36,7 @@
     .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
     .prose ul { list-style: disc; padding-left: 1.4em; } .prose ol { list-style: decimal; padding-left: 1.4em; }
     .prose blockquote { border-left: 3px solid var(--accent); padding-left: 1.1em; font-style: italic; color: var(--muted); }
+    .prose .not-prose p { margin-top: 0; } .prose .not-prose p + p { margin-top: .25rem; }
     .prose img { max-width: 100%; height: auto; margin-top: 1.5em; }
     .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5em 0; }
     .prose code { font-size: .9em; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: .1em .3em; }
@@ -49,7 +50,7 @@
     <nav aria-label="Primary" class="flex items-center gap-5 text-sm">
       <a class="t hidden sm:inline" href="{{ '/' | relative_url }}#writing">Writing</a>
       <a class="t hidden sm:inline" href="{{ '/' | relative_url }}#about">About</a>
-      <a class="t hidden sm:inline" href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      <a class="t hidden sm:inline" href="{{ '/subscribe/' | relative_url }}">Subscribe</a>
       <button id="theme" type="button" aria-pressed="false" class="border border-rule px-3 py-1.5 text-xs hover:border-accent hover:text-accent transition-colors">
         <span class="dark:hidden">Dark</span><span class="hidden dark:inline">Light</span><span class="sr-only"> mode</span>
       </button>
@@ -74,7 +75,7 @@
           </div>
         </form>
         {% else %}
-        <p class="mt-4 font-sans text-sm"><a class="t text-accent" href="{{ '/feed.xml' | relative_url }}">Subscribe by RSS</a></p>
+        <p class="mt-4 font-sans text-sm"><a class="t text-accent" href="{{ '/subscribe/' | relative_url }}">Subscribe</a></p>
         {% endif %}
       </div>
     </div>
