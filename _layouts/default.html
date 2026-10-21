@@ -48,8 +48,8 @@
   <header class="mx-auto max-w-5xl px-5 pt-6 pb-4 border-b-2 border-ink flex items-baseline justify-between font-sans">
     <a href="{{ '/' | relative_url }}" class="font-serif text-3xl font-bold tracking-tight">{{ site.title }}</a>
     <nav aria-label="Primary" class="flex items-center gap-5 text-sm">
-      <a class="t hidden sm:inline" href="{{ '/' | relative_url }}#writing">Writing</a>
-      <a class="t hidden sm:inline" href="{{ '/' | relative_url }}#about">About</a>
+      <a class="t hidden sm:inline" href="{{ '/writing/' | relative_url }}">Writing</a>
+      <a class="t hidden sm:inline" href="{{ '/about/' | relative_url }}">About</a>
       <a class="t hidden sm:inline" href="{{ '/subscribe/' | relative_url }}">Subscribe</a>
       <button id="theme" type="button" aria-pressed="false" class="border border-rule px-3 py-1.5 text-xs hover:border-accent hover:text-accent transition-colors">
         <span class="dark:hidden">Dark</span><span class="hidden dark:inline">Light</span><span class="sr-only"> mode</span>
@@ -61,25 +61,11 @@
     {{ content }}
   </main>
 
-  <footer id="about" class="mx-auto max-w-5xl px-5 mt-24">
-    <div class="bg-hero text-hero-ink px-6 py-12 sm:px-12 grid md:grid-cols-12 gap-10 items-start">
-      <div class="md:col-span-4 flex md:flex-col items-center md:items-start gap-5">
-        <div class="shrink-0 w-24 h-24 rounded-full border-2 border-hero-ink grid place-items-center text-4xl font-bold tracking-tight" aria-hidden="true">CC</div>
-        <div>
-          <p class="font-sans text-xs font-semibold uppercase tracking-[.2em] opacity-80">About</p>
-          <h2 class="mt-2 text-3xl font-bold leading-tight">{{ site.author }}</h2>
-        </div>
-      </div>
-      <div class="md:col-span-8 max-w-xl text-lg">
-        <p>I'm a young writer who is passionate about politics, economics, finance, and business. I write about everything from why a bond auction goes badly, to what a rent cap really does, to the economics behind businesses.</p>
-        <p class="mt-4 opacity-90">Together, business, finance, economics, and politics keep turning out to be one subject, so understanding the combination is imperative to operating like an informed citizen of the world. My habit is to price an idea before I defend it, and to say so when I get one wrong. Nothing here is any type of financial or investment advice.</p>
-        <p class="mt-7 font-sans text-sm flex flex-wrap gap-x-6 gap-y-2">
-          <a class="underline underline-offset-4 hover:opacity-80" href="{{ '/subscribe/' | relative_url }}">Subscribe</a>
-          <a class="underline underline-offset-4 hover:opacity-80" href="{{ '/feed.xml' | relative_url }}">RSS feed</a>
-        </p>
-      </div>
-    </div>
-    <p class="py-6 font-sans text-xs text-muted">© {{ 'now' | date: "%Y" }} {{ site.author }} · {{ site.title }}</p>
+  <footer class="mx-auto max-w-5xl px-5 mt-24 border-t border-rule">
+    <p class="py-6 font-sans text-xs text-muted flex flex-wrap justify-between gap-2">
+      <span>© {{ 'now' | date: "%Y" }} {{ site.author }} · {{ site.title }}</span>
+      <span class="flex gap-4"><a class="t" href="{{ '/writing/' | relative_url }}">Writing</a><a class="t" href="{{ '/about/' | relative_url }}">About</a><a class="t" href="{{ '/subscribe/' | relative_url }}">Subscribe</a></span>
+    </p>
   </footer>
 
   <script>

@@ -136,31 +136,3 @@ layout: default
 })();
 </script>
 {% endif %}
-
-<section id="writing" class="pt-16">
-  <div class="flex items-baseline justify-between border-b-2 border-ink pb-3">
-    <h2 class="text-3xl font-bold tracking-tight">Writing</h2>
-    <p class="font-sans text-sm text-muted">{{ site.posts.size }} {% if site.posts.size == 1 %}essay{% else %}essays{% endif %} so far</p>
-  </div>
-  <div class="grid md:grid-cols-3">
-    {% for topic in site.data.topics %}
-    {% assign items = site.posts | where: "topic", topic.id | slice: 0, 6 %}
-    <div class="py-8 md:px-7 first:md:pl-0 last:md:pr-0 md:border-l border-rule first:md:border-l-0 border-b md:border-b-0 last:border-b-0">
-      <p class="font-sans text-xs font-semibold uppercase tracking-[.16em] text-accent flex items-baseline gap-3">
-        <span class="font-serif text-3xl font-bold leading-none opacity-40">0{{ forloop.index }}</span>{{ topic.name }}
-      </p>
-      <ul class="mt-6 space-y-6">
-        {% for post in items %}
-        <li>
-          <h3 class="text-xl font-bold leading-snug"><a class="t" href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-          {% if post.summary %}<p class="mt-2 text-[.97rem] text-muted">{{ post.summary }}</p>{% endif %}
-          <p class="mt-2 font-sans text-xs text-muted">{{ post.date | date: "%-d %b %Y" }}</p>
-        </li>
-        {% else %}
-        <li class="font-sans text-sm text-muted border border-dashed border-rule px-4 py-6">The next piece is still in the notebook.</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endfor %}
-  </div>
-</section>
