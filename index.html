@@ -1,70 +1,7 @@
 ---
 layout: default
 ---
-<section class="mt-8 relative overflow-hidden aspect-[4/3] sm:aspect-[2/1] md:aspect-[21/9] bg-[#0f2a1c] text-[#f5f0e1]" aria-label="Decorative animated artwork">
-  <canvas id="ridge" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
-  <div class="absolute inset-x-0 bottom-0 p-5 sm:p-8 bg-gradient-to-t from-[#0f2a1c] via-[#0f2a1c]/70 to-transparent pointer-events-none">
-    <p class="font-sans text-[.7rem] sm:text-xs font-semibold uppercase tracking-[.22em] opacity-80">Business · Finance · Economics · Politics</p>
-    <p class="mt-2 font-bold tracking-tight leading-none text-[clamp(2rem,6vw,4.5rem)]">One notebook.</p>
-  </div>
-</section>
-<script>
-(() => {
-  const c = document.getElementById('ridge'); if (!c) return;
-  const ctx = c.getContext('2d'), still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const BG = '#0f2a1c', LINES = 34;
-  let w, h, dpr, mx = .5, tx = .5, raf = 0, on = false, t0 = performance.now();
-  const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); w = c.clientWidth; h = c.clientHeight; c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-  const draw = (now) => {
-    const t = (now - t0) / 1000; mx += (tx - mx) * .05;
-    ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
-    const step = Math.max(3, w / 160);
-    for (let i = 0; i < LINES; i++) {
-      const k = i / (LINES - 1), base = h * (.12 + .86 * k), amp = h * (.05 + .22 * (1 - Math.abs(k - .45)));
-      ctx.beginPath();
-      for (let x = 0; x <= w + step; x += step) {
-        const u = x / w, env = Math.exp(-Math.pow((u - (.3 + mx * .4)) / .22, 2));
-        const n = Math.sin(u * 11 + t * .9 + i * .35) * .5 + Math.sin(u * 23 - t * 1.3 + i * .6) * .3 + Math.sin(u * 5 + t * .4 - i * .2) * .35;
-        const y = base - Math.abs(n) * amp * env - env * h * .02;
-        x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
-      }
-      ctx.lineTo(w, h + 4); ctx.lineTo(0, h + 4); ctx.closePath();
-      ctx.fillStyle = BG; ctx.fill();
-      ctx.strokeStyle = `rgba(${Math.round(76 + 169 * k)},${Math.round(195 + 45 * k)},${Math.round(138 + 87 * k)},${.25 + .7 * k})`;
-      ctx.lineWidth = 1.2 + k * .8; ctx.stroke();
-    }
-  };
-  const loop = (now) => { draw(now); raf = on ? requestAnimationFrame(loop) : 0; };
-  size(); addEventListener('resize', () => { size(); if (!on) draw(performance.now()); });
-  if (still) { draw(performance.now()); return; }
-  c.parentElement.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; });
-  new IntersectionObserver(e => { on = e[0].isIntersecting && !document.hidden; if (on && !raf) raf = requestAnimationFrame(loop); }, { threshold: .05 }).observe(c);
-  document.addEventListener('visibilitychange', () => { on = !document.hidden; if (on && !raf) raf = requestAnimationFrame(loop); });
-})();
-</script>
-
-{% assign latest = site.posts.first %}
-{% if latest %}
-{% assign ltopic = site.data.topics | where: "id", latest.topic | first %}
-<section class="mt-8 relative overflow-hidden bg-hero text-hero-ink px-6 py-12 sm:px-12 sm:py-16">
-  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 800 400" preserveAspectRatio="none" aria-hidden="true">
-    <g stroke="currentColor" stroke-opacity=".07"><path d="M0 100H800M0 200H800M0 300H800"/><path d="M200 0V400M400 0V400M600 0V400"/></g>
-    <path d="M0 330C80 320 120 270 190 285S300 340 380 250 480 190 550 215 670 120 800 60" fill="none" stroke="currentColor" stroke-opacity=".22" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
-    <path d="M0 330C80 320 120 270 190 285S300 340 380 250 480 190 550 215 670 120 800 60V400H0z" fill="currentColor" fill-opacity=".05"/>
-  </svg>
-  <div class="relative max-w-3xl">
-    <p class="font-sans text-xs font-semibold uppercase tracking-[.2em] opacity-80">Latest · {{ ltopic.name | default: "Notes" }}</p>
-    <h1 class="mt-5 text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-balance"><a href="{{ latest.url | relative_url }}" class="hover:underline decoration-1 underline-offset-8">{{ latest.title }}</a></h1>
-    {% if latest.summary %}<p class="mt-6 text-xl sm:text-2xl leading-snug opacity-90 max-w-2xl">{{ latest.summary }}</p>{% endif %}
-    <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 font-sans text-sm">
-      <a href="{{ latest.url | relative_url }}" class="inline-flex items-center gap-2 bg-hero-ink text-hero px-6 py-3 font-semibold hover:gap-4 transition-all duration-300">Read the essay <span aria-hidden="true">→</span></a>
-      <span class="opacity-80">{{ latest.date | date: "%-d %B %Y" }} · {{ latest.content | number_of_words | divided_by: 230 | plus: 1 }} min read</span>
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<section id="story" class="relative mt-16" style="height:340vh;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)" aria-label="Scroll animation">
+<section id="story" class="relative mt-16" style="height:460vh;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)" aria-label="Scroll animation">
   <div class="sticky top-0 overflow-hidden bg-[#0f2a1c] text-[#f5f0e1]" style="height:100vh;height:100svh">
     <div id="glow" class="absolute inset-0" aria-hidden="true"></div>
     <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -78,6 +15,14 @@ layout: default
       <p class="sw absolute font-bold tracking-tight leading-none text-[clamp(3.2rem,13vw,10rem)]">Markets.</p>
       <p class="sw absolute font-bold tracking-tight leading-none text-[clamp(3.2rem,13vw,10rem)]">Power.</p>
       <p class="sw absolute font-bold tracking-tight leading-tight text-[clamp(2.6rem,10vw,8rem)]">One subject.</p>
+      <div id="about-scene" class="sw absolute w-full max-w-xl px-6 text-center pointer-events-none">
+        <div class="mx-auto w-20 h-20 rounded-full border-2 border-[#f5f0e1] grid place-items-center text-3xl font-bold" aria-hidden="true">CC</div>
+        <p class="mt-5 font-sans text-xs font-semibold uppercase tracking-[.22em] opacity-80">About</p>
+        <h2 class="mt-1 text-3xl sm:text-4xl font-bold">{{ site.author }}</h2>
+        <p class="mt-5 text-base sm:text-lg leading-relaxed">I'm a young writer who is passionate about politics, economics, finance, and business. I write about everything from why a bond auction goes badly, to what a rent cap really does, to the economics behind businesses.</p>
+        <p class="mt-3 text-sm sm:text-base leading-relaxed opacity-90">Together, they keep turning out to be one subject, so understanding the combination is imperative to operating like an informed citizen of the world. My habit is to price an idea before I defend it, and to say so when I get one wrong. Nothing here is any type of financial or investment advice.</p>
+        <p class="mt-5 font-sans text-sm flex justify-center gap-6"><a class="underline underline-offset-4" href="{{ '/writing/' | relative_url }}">Read the writing</a><a class="underline underline-offset-4" href="{{ '/subscribe/' | relative_url }}">Subscribe</a></p>
+      </div>
     </div>
     <p id="count" class="absolute top-5 right-5 sm:top-8 sm:right-10 font-sans text-xs tracking-[.2em] opacity-80" aria-hidden="true">01 / 04</p>
     <p id="hint" class="absolute bottom-6 inset-x-0 text-center font-sans text-xs uppercase tracking-[.24em] opacity-70 transition-opacity duration-500" aria-hidden="true">Scroll ↓</p>
@@ -107,12 +52,34 @@ layout: default
       if (a > .5) cur = i;
     });
     count.textContent = `0${cur + 1} / 0${n}`;
+    const ab = words[n - 1]; ab.style.pointerEvents = ab.style.opacity > .6 ? 'auto' : 'none';
     hint.style.opacity = p > .03 ? 0 : .7;
   };
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { sec.style.height = 'auto'; sec.firstElementChild.style.position = 'relative'; render(1); words.forEach(w => { w.style.opacity = 0; }); words[words.length - 1].style.opacity = 1; return; }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { sec.style.height = 'auto'; sec.firstElementChild.style.position = 'relative'; render(1); words.forEach(w => { w.style.opacity = 0; }); words[words.length - 1].style.opacity = 1; words[words.length - 1].style.pointerEvents = 'auto'; return; }
   let tick = false;
   const update = () => { tick = false; const r = sec.getBoundingClientRect(), span = r.height - innerHeight; render(clamp(-r.top / span)); };
   addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', update); update();
 })();
 </script>
+
+{% assign latest = site.posts.first %}
+{% if latest %}
+{% assign ltopic = site.data.topics | where: "id", latest.topic | first %}
+<section class="mt-16 relative overflow-hidden bg-hero text-hero-ink px-6 py-12 sm:px-12 sm:py-16">
+  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 800 400" preserveAspectRatio="none" aria-hidden="true">
+    <g stroke="currentColor" stroke-opacity=".07"><path d="M0 100H800M0 200H800M0 300H800"/><path d="M200 0V400M400 0V400M600 0V400"/></g>
+    <path d="M0 330C80 320 120 270 190 285S300 340 380 250 480 190 550 215 670 120 800 60" fill="none" stroke="currentColor" stroke-opacity=".22" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
+    <path d="M0 330C80 320 120 270 190 285S300 340 380 250 480 190 550 215 670 120 800 60V400H0z" fill="currentColor" fill-opacity=".05"/>
+  </svg>
+  <div class="relative max-w-3xl">
+    <p class="font-sans text-xs font-semibold uppercase tracking-[.2em] opacity-80">Latest · {{ ltopic.name | default: "Notes" }}</p>
+    <h1 class="mt-5 text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-balance"><a href="{{ latest.url | relative_url }}" class="hover:underline decoration-1 underline-offset-8">{{ latest.title }}</a></h1>
+    {% if latest.summary %}<p class="mt-6 text-xl sm:text-2xl leading-snug opacity-90 max-w-2xl">{{ latest.summary }}</p>{% endif %}
+    <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 font-sans text-sm">
+      <a href="{{ latest.url | relative_url }}" class="inline-flex items-center gap-2 bg-hero-ink text-hero px-6 py-3 font-semibold hover:gap-4 transition-all duration-300">Read the essay <span aria-hidden="true">→</span></a>
+      <span class="opacity-80">{{ latest.date | date: "%-d %B %Y" }} · {{ latest.content | number_of_words | divided_by: 230 | plus: 1 }} min read</span>
+    </div>
+  </div>
+</section>
+{% endif %}
