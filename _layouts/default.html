@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.summary | default: site.description }}">
+  <meta name="color-scheme" content="light dark">
+  {% feed_meta %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script>
+    try { const t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); } catch (e) {}
+  </script>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: {
+      colors: { paper: 'var(--paper)', ink: 'var(--ink)', muted: 'var(--muted)', rule: 'var(--rule)', accent: 'var(--accent)' },
+      fontFamily: { serif: ['"Source Serif 4"', 'Georgia', 'serif'], sans: ['Inter', 'system-ui', 'sans-serif'] }
+    } } };
+  </script>
+  <style>
+    :root { --paper:#fbf8f2; --ink:#1d1b18; --muted:#5c564d; --rule:#d9d1c3; --accent:#8c1c2e; }
+    .dark { --paper:#18130f; --ink:#ece4d6; --muted:#b5a996; --rule:#3a2f25; --accent:#ef8f9b; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { background: var(--paper); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    a.t { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; text-decoration-thickness: 1px; transition: color .2s, text-decoration-color .2s; }
+    a.t:hover { color: var(--accent); text-decoration-color: currentColor; }
+    .prose p, .prose ul, .prose ol, .prose blockquote, .prose figure, .prose pre { margin-top: 1.25em; }
+    .prose h2 { font-weight: 700; font-size: 1.6rem; line-height: 1.25; margin-top: 2.2em; }
+    .prose h3 { font-weight: 700; font-size: 1.25rem; margin-top: 1.8em; }
+    .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .prose ul { list-style: disc; padding-left: 1.4em; } .prose ol { list-style: decimal; padding-left: 1.4em; }
+    .prose blockquote { border-left: 3px solid var(--accent); padding-left: 1.1em; font-style: italic; color: var(--muted); }
+    .prose img { max-width: 100%; height: auto; margin-top: 1.5em; }
+    .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5em 0; }
+    .prose code { font-size: .9em; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: .1em .3em; }
+  </style>
+</head>
+<body class="font-serif text-ink antialiased text-[1.0625rem] leading-relaxed transition-colors duration-300">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-accent focus:text-paper focus:px-4 focus:py-2 font-sans text-sm">Skip to content</a>
+
+  <header class="mx-auto max-w-5xl px-5 pt-6 pb-4 border-b-2 border-ink flex items-baseline justify-between font-sans">
+    <a href="{{ '/' | relative_url }}" class="font-serif text-3xl font-bold tracking-tight">{{ site.title }}</a>
+    <nav aria-label="Primary" class="flex items-center gap-5 text-sm">
+      <a class="t hidden sm:inline" href="{{ '/' | relative_url }}#writing">Writing</a>
+      <a class="t hidden sm:inline" href="{{ '/' | relative_url }}#about">About</a>
+      <a class="t hidden sm:inline" href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      <button id="theme" type="button" aria-pressed="false" class="border border-rule px-3 py-1.5 text-xs hover:border-accent hover:text-accent transition-colors">
+        <span class="dark:hidden">Dark</span><span class="hidden dark:inline">Light</span><span class="sr-only"> mode</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main" class="mx-auto max-w-5xl px-5">
+    {{ content }}
+  </main>
+
+  <footer id="about" class="mx-auto max-w-5xl px-5 mt-20 border-t-2 border-ink">
+    <div class="py-10 grid md:grid-cols-12 gap-8">
+      <h2 class="md:col-span-3 font-sans text-xs font-semibold uppercase tracking-[.16em] text-accent">About</h2>
+      <div class="md:col-span-9 max-w-2xl">
+        <p>I'm {{ site.author }}. I don't work for anyone you'd have heard of, and I write about whatever I can't stop thinking about, which tends to land somewhere in business, finance, economics or politics. Treat it as one person's notebook. I'll say what I think and why, and I'll say so when I turn out to be wrong. Nothing here is investment advice.</p>
+        {% if site.newsletter_action != "" %}
+        <form action="{{ site.newsletter_action }}" method="post" class="mt-6 font-sans max-w-md">
+          <label for="email" class="block text-sm font-medium mb-2">Get new posts by email</label>
+          <div class="flex gap-2">
+            <input id="email" name="email" type="email" required autocomplete="email" class="flex-1 min-w-0 bg-transparent border border-ink px-3 py-2 focus:border-accent focus:outline-none">
+            <button class="bg-ink text-paper px-4 py-2 text-sm font-medium hover:bg-accent transition-colors">Subscribe</button>
+          </div>
+        </form>
+        {% else %}
+        <p class="mt-4 font-sans text-sm"><a class="t text-accent" href="{{ '/feed.xml' | relative_url }}">Subscribe by RSS</a></p>
+        {% endif %}
+      </div>
+    </div>
+    <p class="py-5 border-t border-rule font-sans text-xs text-muted">© {{ 'now' | date: "%Y" }} {{ site.author }}</p>
+  </footer>
+
+  <script>
+    const root = document.documentElement, btn = document.getElementById('theme');
+    const sync = () => btn.setAttribute('aria-pressed', root.classList.contains('dark'));
+    sync();
+    btn.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      try { localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
+      sync();
+    });
+  </script>
+</body>
+</html>

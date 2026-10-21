@@ -1,0 +1,12 @@
+title: The Journal
+description: Notes on business, finance, economics and politics.
+author: Colin Copps
+# Set to your user site, e.g. https://colin-copps.github.io (leave baseurl empty for a user site)
+url: ""
+baseurl: ""
+permalink: /posts/:title/
+markdown: kramdown
+plugins:
+  - jekyll-feed
+# Paste a form action URL (Buttondown, Substack, ConvertKit...) to show a signup form. Empty = RSS link only.
+newsletter_action: ""
