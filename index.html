@@ -3,11 +3,13 @@ layout: default
 ---
 <div class="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true">
   <div id="glow" class="absolute inset-0"></div>
-  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice">
-    <g id="grid" stroke="var(--accent)" stroke-opacity=".08"></g>
-    <path d="M-20 420C80 410 130 330 220 350S350 440 450 330 560 220 650 250 780 130 1020 60" fill="none" stroke="var(--accent)" stroke-width="10" stroke-opacity=".07" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-    <path id="line" pathLength="1" d="M-20 420C80 410 130 330 220 350S350 440 450 330 560 220 650 250 780 130 1020 60" fill="none" stroke="var(--accent)" stroke-opacity=".45" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke" stroke-dasharray="1" stroke-dashoffset="1"/>
-    <circle id="dot" r="8" fill="var(--accent)" stroke="var(--paper)" stroke-width="3" vector-effect="non-scaling-stroke"/>
+  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <g id="rings" style="transform-origin:500px 500px">
+      <circle class="rc" r="250" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".4" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <circle class="rc" r="250" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".4" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <circle class="rc" r="250" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".4" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <circle class="rc" r="250" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".4" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    </g>
   </svg>
 </div>
 
@@ -42,15 +44,12 @@ layout: default
 
 <script>
 (() => {
-  const $ = id => document.getElementById(id), line = $('line'), dot = $('dot'), grid = $('grid'), glow = $('glow');
-  const len = line.getTotalLength(), NS = 'http://www.w3.org/2000/svg';
-  for (let i = 1; i < 10; i++) { const l = document.createElementNS(NS, 'line'); l.setAttribute('x1', i * 100); l.setAttribute('x2', i * 100); l.setAttribute('y1', 0); l.setAttribute('y2', 500); grid.appendChild(l); }
+  const rings = document.getElementById('rings'), cs = [...rings.querySelectorAll('.rc')], glow = document.getElementById('glow');
   const render = p => {
-    line.style.strokeDashoffset = 1 - p;
-    const pt = line.getPointAtLength(p * len); dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y);
-    dot.style.opacity = p > .005 ? 1 : 0;
-    grid.setAttribute('transform', `translate(${-p * 140} 0)`);
-    glow.style.background = `radial-gradient(60% 70% at ${15 + p * 70}% ${85 - p * 60}%, color-mix(in srgb, var(--accent) ${12 + p * 10}%, transparent), transparent 70%)`;
+    const e = p * p * (3 - 2 * p), d = 330 - e * 250;
+    [[-d, 0], [d, 0], [0, -d], [0, d]].forEach(([x, y], i) => { cs[i].setAttribute('cx', 500 + x); cs[i].setAttribute('cy', 500 + y); });
+    rings.style.transform = `rotate(${e * 90}deg)`;
+    glow.style.background = `radial-gradient(55% 60% at 50% 50%, color-mix(in srgb, var(--accent) ${6 + e * 14}%, transparent), transparent 70%)`;
   };
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(.6); return; }
   let tick = false;
