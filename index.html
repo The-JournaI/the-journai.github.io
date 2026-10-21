@@ -23,7 +23,6 @@ layout: default
         <p class="mt-7 font-sans text-sm flex justify-center gap-6"><a class="underline underline-offset-4" href="{{ '/writing/' | relative_url }}">Read the writing</a><a class="underline underline-offset-4" href="{{ '/subscribe/' | relative_url }}">Subscribe</a></p>
       </div>
     </div>
-    <p id="count" class="absolute top-5 right-5 sm:top-8 sm:right-10 font-sans text-xs tracking-[.2em] opacity-80" aria-hidden="true">01 / 04</p>
     <p id="hint" class="absolute bottom-6 inset-x-0 text-center font-sans text-xs uppercase tracking-[.24em] opacity-70 transition-opacity duration-500" aria-hidden="true">Scroll ↓</p>
   </div>
 </section>
@@ -32,7 +31,7 @@ layout: default
   const sec = document.getElementById('story'); if (!sec) return;
   const $ = id => document.getElementById(id);
   const line = $('line'), dot = $('dot'), len = line.getTotalLength(), words = [...sec.querySelectorAll('.sw')];
-  const svg = sec.querySelector('svg'), glow = $('glow'), count = $('count'), hint = $('hint'), grid = $('grid');
+  const svg = sec.querySelector('svg'), glow = $('glow'), hint = $('hint'), grid = $('grid');
   const NS = 'http://www.w3.org/2000/svg';
   for (let i = 1; i < 10; i++) { const l = document.createElementNS(NS, 'line'); l.setAttribute('x1', i * 100); l.setAttribute('x2', i * 100); l.setAttribute('y1', 0); l.setAttribute('y2', 500); grid.appendChild(l); }
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -51,7 +50,6 @@ layout: default
       el.style.opacity = a; el.style.transform = `translateY(${-d * 70}px) scale(${.92 + a * .08})`; el.style.filter = `blur(${(1 - a) * 8}px)`;
       if (a > .5) cur = i;
     });
-    count.textContent = `0${cur + 1} / 0${n}`;
     const ab = words[n - 1]; ab.style.pointerEvents = ab.style.opacity > .6 ? 'auto' : 'none';
     hint.style.opacity = p > .03 ? 0 : .7;
   };
