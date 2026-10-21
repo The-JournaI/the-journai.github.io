@@ -1,5 +1,5 @@
 ---
-title: Anger Is Not Analysis
+title: Youth Politics and Fiscal Foundations
 topic: finance
 summary: Gen Z's grievances about rents and public services are real. The remedies on offer, from cancelling debt to capping rents, often don't survive contact with the numbers.
 ---
