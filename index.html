@@ -3,13 +3,15 @@ layout: default
 ---
 <div class="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true">
   <div id="glow" class="absolute inset-0"></div>
-  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-    <g id="rings" style="transform-origin:500px 500px">
-      <circle class="rc" r="250" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".4" stroke-width="2" vector-effect="non-scaling-stroke"/>
-      <circle class="rc" r="250" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".4" stroke-width="2" vector-effect="non-scaling-stroke"/>
-      <circle class="rc" r="250" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".4" stroke-width="2" vector-effect="non-scaling-stroke"/>
-      <circle class="rc" r="250" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".4" stroke-width="2" vector-effect="non-scaling-stroke"/>
-    </g>
+  <svg class="absolute inset-0 w-full h-full">
+    <defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="var(--accent)" fill-opacity=".22"/></pattern></defs>
+    <rect id="dotgrid" x="-60" y="-60" width="200%" height="200%" fill="url(#dots)"/>
+  </svg>
+  <svg class="absolute right-4 bottom-4 sm:right-8 sm:bottom-8 w-24 h-24 sm:w-32 sm:h-32" viewBox="-100 -100 200 200">
+    <circle class="rc" r="46" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".35" stroke-width="1.5"/>
+    <circle class="rc" r="46" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".35" stroke-width="1.5"/>
+    <circle class="rc" r="46" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".35" stroke-width="1.5"/>
+    <circle class="rc" r="46" fill="var(--accent)" fill-opacity=".05" stroke="var(--accent)" stroke-opacity=".35" stroke-width="1.5"/>
   </svg>
 </div>
 
@@ -44,14 +46,14 @@ layout: default
 
 <script>
 (() => {
-  const rings = document.getElementById('rings'), cs = [...rings.querySelectorAll('.rc')], glow = document.getElementById('glow');
+  const cs = [...document.querySelectorAll('.rc')], dots = document.getElementById('dotgrid'), glow = document.getElementById('glow');
   const render = p => {
-    const e = p * p * (3 - 2 * p), d = 330 - e * 250;
-    [[-d, 0], [d, 0], [0, -d], [0, d]].forEach(([x, y], i) => { cs[i].setAttribute('cx', 500 + x); cs[i].setAttribute('cy', 500 + y); });
-    rings.style.transform = `rotate(${e * 90}deg)`;
-    glow.style.background = `radial-gradient(55% 60% at 50% 50%, color-mix(in srgb, var(--accent) ${6 + e * 14}%, transparent), transparent 70%)`;
+    const e = p * p * (3 - 2 * p), d = 48 - e * 30;
+    [[-d, 0], [d, 0], [0, -d], [0, d]].forEach(([x, y], i) => { cs[i].setAttribute('cx', x); cs[i].setAttribute('cy', y); });
+    dots.setAttribute('transform', `translate(0 ${-p * 90})`);
+    glow.style.background = `radial-gradient(60% 50% at 80% ${20 + p * 60}%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%)`;
   };
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(.6); return; }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(.4); return; }
   let tick = false;
   const update = () => { tick = false; const max = document.documentElement.scrollHeight - innerHeight; render(max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0); };
   addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
