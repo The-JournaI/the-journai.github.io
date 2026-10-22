@@ -1,4 +1,4 @@
-# The Journal
+# Money and Power
 
 A Jekyll blog hosted free on GitHub Pages. No build step on your machine.
 
