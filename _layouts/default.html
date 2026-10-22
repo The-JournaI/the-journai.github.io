@@ -50,7 +50,7 @@
     <a href="{{ '/' | relative_url }}" class="font-serif text-lg min-[400px]:text-xl sm:text-3xl font-bold tracking-tight whitespace-nowrap">{{ site.title }}</a>
     <nav aria-label="Primary" class="flex items-center gap-2.5 sm:gap-5 text-xs sm:text-sm">
       <a class="t" href="{{ '/writing/' | relative_url }}">Writing</a>
-      <a class="t" href="{{ '/about/' | relative_url }}">About</a>
+      <a class="t hidden min-[400px]:inline" href="{{ '/about/' | relative_url }}">About</a>
       <a class="t" href="{{ '/subscribe/' | relative_url }}">Subscribe</a>
       <button id="theme" type="button" aria-pressed="false" class="border border-rule px-2.5 py-1.5 text-xs hover:border-accent hover:text-accent transition-colors">
         <span class="sm:hidden" aria-hidden="true">◐</span><span class="hidden sm:inline"><span class="dark:hidden">Dark</span><span class="hidden dark:inline">Light</span></span><span class="sr-only"> mode</span>
