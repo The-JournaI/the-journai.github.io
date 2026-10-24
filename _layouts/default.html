@@ -63,6 +63,19 @@
   </main>
 
   <footer class="mx-auto max-w-5xl px-5 mt-24 border-t border-rule">
+    {% if site.newsletter_username != "" %}
+    <div class="py-10 border-b border-rule">
+    <form action="https://buttondown.com/api/emails/embed-subscribe/{{ site.newsletter_username }}" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/{{ site.newsletter_username }}', 'popupwindow')" class="font-sans max-w-md">
+      <label for="footer-email" class="block text-sm font-medium mb-2">Get new essays by email</label>
+      <div class="flex gap-2">
+        <input id="footer-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" class="flex-1 min-w-0 bg-transparent border border-ink px-3 py-2.5 focus:border-accent focus:outline-none">
+        <input type="hidden" value="1" name="embed">
+        <button class="bg-ink text-paper px-5 py-2.5 text-sm font-medium hover:bg-accent hover:-translate-y-0.5 transition-all duration-300">Subscribe</button>
+      </div>
+      <p class="mt-2 text-xs text-muted">One email when a new essay is published. Unsubscribe any time.</p>
+    </form>
+    </div>
+    {% endif %}
     <p class="py-6 font-sans text-xs text-muted flex flex-wrap justify-between gap-2">
       <span>© {{ 'now' | date: "%Y" }} {{ site.author }} · {{ site.title }}</span>
       <span class="flex gap-4"><a class="t" href="{{ '/writing/' | relative_url }}">Writing</a><a class="t" href="{{ '/about/' | relative_url }}">About</a><a class="t" href="{{ '/subscribe/' | relative_url }}">Subscribe</a></span>

@@ -8,5 +8,5 @@ permalink: /posts/:title/
 markdown: kramdown
 plugins:
   - jekyll-feed
-# Paste a form action URL (Buttondown, Substack, ConvertKit...) to show a signup form. Empty = RSS link only.
-newsletter_action: ""
+# Buttondown username (buttondown.com/<username>). Empty = hide the email forms.
+newsletter_username: "moneyandpower"
