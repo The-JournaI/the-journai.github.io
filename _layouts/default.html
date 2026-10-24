@@ -63,7 +63,7 @@
   </main>
 
   <footer class="mx-auto max-w-5xl px-5 mt-24 border-t border-rule">
-    {% if site.newsletter_username != "" %}
+    {% if site.newsletter_username != "" and page.url != "/subscribe/" %}
     <div class="py-10 border-b border-rule">
     <form action="https://buttondown.com/api/emails/embed-subscribe/{{ site.newsletter_username }}" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/{{ site.newsletter_username }}', 'popupwindow')" class="font-sans max-w-md">
       <label for="footer-email" class="block text-sm font-medium mb-2">Get new essays by email</label>

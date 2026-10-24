@@ -20,7 +20,7 @@ Commit and push (or use GitHub's **Add file → Create new file** in the browser
 `_data/topics.yml` (the three columns) and `_config.yml`.
 
 ## Email signup
-Paste a form action URL from Buttondown, ConvertKit, etc. into `newsletter_action` in `_config.yml`. Until then the footer shows an RSS link.
+Signups go to Buttondown. The username is `newsletter_username` in `_config.yml` (set it to empty to hide the forms).
 
 ## Preview locally (optional)
 `gem install bundler jekyll jekyll-feed && jekyll serve`
